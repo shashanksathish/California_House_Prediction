@@ -1,5 +1,6 @@
 import numpy as np
 from flask import Flask, request, render_template
+from gevent.pywsgi import WSGIServer
 import pickle
 
 app = Flask(__name__)
@@ -28,4 +29,5 @@ def predict():
 
 
 if __name__ == "__main__":
-  app.run(debug=True) 
+  http_server = WSGIServer(('', 5000), app)
+  http_server.serve_forever()
